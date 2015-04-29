@@ -38,12 +38,6 @@ trait RestrictedType[SEARCHME, BELLY, SHIELD <: AnyVal] {
   def contains( b : BELLY ) : Boolean;
   def contains[T]( xb : T )( implicit converter : Converter[SEARCHME,T,BELLY] ) : Boolean = try this.contains( converter.convert( xb ) ) catch RecoverFalse;
 
-  final def elem_:  ( b : BELLY ) : Boolean = this.contains( b );
-  final def elem_!: ( b : BELLY ) : Boolean = this.contains( b ) || ( throw new IllegalArgumentException( badValueMessage( b ) ) );
-
-  final def elem_:[T]  ( xb : T )( implicit converter : Converter[SEARCHME,T,BELLY] ) : Boolean = try this.elem_:( converter.convert( xb ) )  catch RecoverFalse;
-  final def elem_!:[T] ( xb : T )( implicit converter : Converter[SEARCHME,T,BELLY] ) : Boolean = try this.elem_!:( converter.convert( xb ) ) catch RecoverIAE; 
-
   final def apply[T]( xb : T )( implicit converter : Converter[SEARCHME,T,BELLY] ) : SHIELD = {
     apply( converter.convert( xb ) )
   }
@@ -65,6 +59,15 @@ trait RestrictedType[SEARCHME, BELLY, SHIELD <: AnyVal] {
 
   //final def unsafe( b : BELLY ) : SHIELD = create(b);
 
+  /**
+   *  You'll generally want to override this into some concise notation
+   *  that describes your restricted type.
+   */  
+  def mathRep : String = simpleName;
+
+  /**
+   *  You usually won't need to override this, but may if you want!
+   */  
   val simpleName : String = try { 
     this.getClass.getSimpleName.filter( _ != '$' ) 
   } catch { // workaround Scala bug, "java.lang.InternalError: Malformed class name"
@@ -73,11 +76,29 @@ trait RestrictedType[SEARCHME, BELLY, SHIELD <: AnyVal] {
       fqcn.reverse.dropWhile( _ == '$' ).takeWhile( "$.".indexOf(_) < 0 ).reverse
     }
   }
-  def mathRep : String = simpleName;
+
   override def toString : String = {
     val mr = mathRep;
     if ( mr == simpleName ) simpleName else s"${simpleName}: ${mathRep}";
   }
   def notMemberMessage( a : Any ) = s"${a} \u2209 ${mathRep}";
   def badValueMessage( a : Any ) = "Bad value: " + notMemberMessage( a )
+
+  // convenience aliases of contain, including versions that throw well-messaged IllegalArgumentException rather than return false.
+  final def elem_:  ( b : BELLY ) : Boolean = this.contains( b );
+  final def elem_!: ( b : BELLY ) : Boolean = this.contains( b ) || ( throw new IllegalArgumentException( badValueMessage( b ) ) );
+
+  final def elem_:[T]  ( xb : T )( implicit converter : Converter[SEARCHME,T,BELLY] ) : Boolean = try this.elem_:( converter.convert( xb ) )  catch RecoverFalse;
+  final def elem_!:[T] ( xb : T )( implicit converter : Converter[SEARCHME,T,BELLY] ) : Boolean = try this.elem_!:( converter.convert( xb ) ) catch RecoverIAE;
+
+  // support the mathematical is-element-of-symbol, why not? http://www.fileformat.info/info/unicode/char/2208/index.htm
+  final def \u2208: ( b : BELLY )  : Boolean = this.elem_:( b );
+  final def \u2208!: ( b : BELLY ) : Boolean = this.elem_!:( b );
+
+  final def \u2208:[T] ( xb : T )( implicit converter : Converter[SEARCHME,T,BELLY] )  : Boolean = this.elem_:( xb )( converter );
+  final def \u2208!:[T] ( xb : T )( implicit converter : Converter[SEARCHME,T,BELLY] ) : Boolean = this.elem_!:( xb )( converter );
+
+  // and just to be gratuitous, support is-not-element-of
+  final def \u2209: ( b : BELLY )  : Boolean = !this.elem_:( b );
+  final def \u2209:[T] ( xb : T )( implicit converter : Converter[SEARCHME,T,BELLY] )  : Boolean = !this.elem_:( xb )( converter );
 }
