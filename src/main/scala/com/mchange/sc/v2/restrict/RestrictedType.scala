@@ -53,7 +53,17 @@ trait RestrictedType[SEARCHME, BELLY, SHIELD <: AnyVal] {
     create( b );
   }
 
-  //final def unsafe( b : Belly ) : SHIELD = create(b);
+  /**
+   *  This method is very much like apply, but the "type-check" is an elidable
+   *  assert. Should only be used when it would be an internal, program error
+   *  for a noncompilant value to be passed.
+   */  
+  final def assert( b : BELLY ) : SHIELD = {
+    require( b elem_!: this );
+    create( b );
+  }
+
+  //final def unsafe( b : BELLY ) : SHIELD = create(b);
 
   val simpleName : String = try { 
     this.getClass.getSimpleName.filter( _ != '$' ) 
