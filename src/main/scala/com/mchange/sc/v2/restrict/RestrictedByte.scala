@@ -13,6 +13,7 @@ object RestrictedByte {
   class UnsignedByte private ( val value : Byte ) extends AnyVal with RestrictedType.Element[Byte];
 
   abstract class MinUntil[SHIELD <: AnyVal]( val MinValueInclusive : Byte, val MaxValueExclusive : Byte ) extends RestrictedByte[SHIELD] with RestrictedType.MinUntil {
+    require( MaxValueExclusive > MinValueInclusive );
     override def contains( value : Byte ) : Boolean = value >= MinValueInclusive && value < MaxValueExclusive;
   }
   abstract class ZeroUntil[SHIELD <: AnyVal]( max : Byte ) extends RestrictedByte.MinUntil[SHIELD](0, max );

@@ -13,6 +13,7 @@ object RestrictedLong {
   class UnsignedLong private ( val value : Long ) extends AnyVal with RestrictedType.Element[Long];
 
   abstract class MinUntil[SHIELD <: AnyVal]( val MinValueInclusive : Long, val MaxValueExclusive : Long ) extends RestrictedLong[SHIELD] with RestrictedType.MinUntil {
+    require( MaxValueExclusive > MinValueInclusive );
     override def contains( value : Long ) : Boolean = value >= MinValueInclusive && value < MaxValueExclusive;
   }
   abstract class ZeroUntil[SHIELD <: AnyVal]( max : Long ) extends RestrictedLong.MinUntil[SHIELD](0, max );

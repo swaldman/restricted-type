@@ -13,6 +13,7 @@ object RestrictedBigInt {
   class UnsignedBigInt private ( val value : BigInt ) extends AnyVal with RestrictedType.Element[BigInt];
 
   abstract class MinUntil[SHIELD <: AnyVal]( val MinValueInclusive : BigInt, val MaxValueExclusive : BigInt ) extends RestrictedBigInt[SHIELD] with RestrictedType.MinUntil {
+    require( MaxValueExclusive > MinValueInclusive );
     override def contains( value : BigInt ) : Boolean = value >= MinValueInclusive && value < MaxValueExclusive;
   }
   abstract class ZeroUntil[SHIELD <: AnyVal]( max : BigInt ) extends RestrictedBigInt.MinUntil[SHIELD](0, max );
