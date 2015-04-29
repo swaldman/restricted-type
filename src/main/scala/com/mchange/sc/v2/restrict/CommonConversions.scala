@@ -45,11 +45,19 @@ object CommonConversions {
     }
   }
   object IntegralToBigInt {
-    implicit object IntBigIntConverter extends Converter[Nothing,Int,BigInt] {
-      def convert( i : Int ) : BigInt = BigInt( i );
+    implicit object IntBigIntConverter extends Converter[Nothing,Int,BigInt]   { def convert( i : Int ) : BigInt = BigInt( i ); }
+    implicit object LongBigIntConverter extends Converter[Nothing,Long,BigInt] { def convert( i : Long ) : BigInt = BigInt( i ); }
+  }
+
+  object ToByteSeq {
+    import scala.collection._
+    import com.mchange.sc.v2.collection.immutable.ImmutableArraySeq;
+
+    implicit object ByteArrayConverter extends Converter[Nothing,Array[Byte],immutable.Seq[Byte]] {
+      def convert( arr : Array[Byte] ) : immutable.Seq[Byte] = ImmutableArraySeq.Byte( arr );
     }
-    implicit object LongBigIntConverter extends Converter[Nothing,Long,BigInt] {
-      def convert( i : Long ) : BigInt = BigInt( i );
+    implicit object MutableSeqConverter extends Converter[Nothing,mutable.Seq[Byte],immutable.Seq[Byte]] {
+      def convert( seq : mutable.Seq[Byte] ) : immutable.Seq[Byte] = ImmutableArraySeq.Byte.createNoCopy( seq.toArray );
     }
   }
 }

@@ -29,5 +29,10 @@ publishTo <<= version {
   }
 }
 
+libraryDependencies ++= Seq(
+  "com.mchange" %% "mchange-commons-scala" % "0.4.0-SNAPSHOT" changing()
+)
+
+
 
 
