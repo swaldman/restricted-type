@@ -7,14 +7,14 @@ object RestrictedByte {
 
   object AnyByte extends RestrictedByte[AnyByte] {
     override def contains( value : Byte ) : Boolean = true;
-    override def create( value : Byte ) = new AnyByte( value ); 
+    override protected def create( value : Byte ) = new AnyByte( value ); 
   }
-  class AnyByte private ( val value : Byte ) extends AnyVal with RestrictedType.Element[Byte];
+  class AnyByte private ( val widen : Byte ) extends AnyVal with RestrictedType.Element[Byte];
 
   object UnsignedByte extends Unsigned[UnsignedByte] {
-    override def create( value : Byte ) = new UnsignedByte( value ); 
+    override protected def create( value : Byte ) = new UnsignedByte( value ); 
   }
-  class UnsignedByte private ( val value : Byte ) extends AnyVal with RestrictedType.Element[Byte];
+  class UnsignedByte private ( val widen : Byte ) extends AnyVal with RestrictedType.Element[Byte];
 
   abstract class MinUntil[SHIELD <: ShieldType]( val MinValueInclusive : Byte, val MaxValueExclusive : Byte ) 
       extends RestrictedByte[SHIELD] with RestrictedType.MinUntil {
@@ -22,7 +22,7 @@ object RestrictedByte {
     override def contains( value : Byte ) : Boolean = value >= MinValueInclusive && value < MaxValueExclusive;
   }
   abstract class ZeroUntil[SHIELD <: ShieldType]( max : Byte ) extends RestrictedByte.MinUntil[SHIELD](0, max );
-  abstract class UnsignedWithBitLength[SHIELD <: ShieldType]( bitLength : Int ) extends RestrictedByte.ZeroUntil[SHIELD]( AnyByte(1 << bitLength).value );
+  abstract class UnsignedWithBitLength[SHIELD <: ShieldType]( bitLength : Int ) extends RestrictedByte.ZeroUntil[SHIELD]( AnyByte(1 << bitLength).widen );
   abstract class Unsigned[SHIELD <: ShieldType] extends ZeroUntil[SHIELD]( Byte.MaxValue );
 }
 trait RestrictedByte[SHIELD <: RestrictedByte.ShieldType] extends RestrictedType[CommonConversions.IntegralToByte.type,Byte,SHIELD];

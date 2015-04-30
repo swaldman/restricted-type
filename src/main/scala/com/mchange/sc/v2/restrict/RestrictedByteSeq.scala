@@ -9,9 +9,9 @@ object RestrictedByteSeq {
 
   object AnyByteSeq extends RestrictedByteSeq[AnyByteSeq] {
     override def contains( value : immutable.Seq[Byte] ) : Boolean = true;
-    override def create( value : immutable.Seq[Byte] ) = new AnyByteSeq( value ); 
+    override protected def create( value : immutable.Seq[Byte] ) = new AnyByteSeq( value ); 
   }
-  class AnyByteSeq private ( val value : immutable.Seq[Byte] ) extends AnyVal with RestrictedType.Element[immutable.Seq[Byte]];
+  class AnyByteSeq private ( val widen : immutable.Seq[Byte] ) extends AnyVal with RestrictedType.Element[immutable.Seq[Byte]];
 
   abstract class LimitedLength[SHIELD <: ShieldType]( val MaxLengthInclusive : Int ) extends RestrictedByteSeq[SHIELD] {
     def contains( seq : immutable.Seq[Byte] ) : Boolean = seq.length <= MaxLengthInclusive;

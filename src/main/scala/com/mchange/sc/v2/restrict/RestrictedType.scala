@@ -9,13 +9,13 @@ object RestrictedType {
     override def mathRep : String = s"[${MinValueInclusive},${MaxValueExclusive})"
   }
   trait Element[BELLY] extends Any {
-    def value : BELLY;
-    def unwrap : BELLY = value;
+    def widen : BELLY;
+    def unwrap : BELLY = widen;
 
     override def toString : String = {
       import javax.xml.bind.DatatypeConverter;
 
-      val valueStr = value match {
+      val valueStr = widen match {
         case ba : Array[Byte]                                                 => s"0x${DatatypeConverter.printHexBinary( ba )}";
         case bs : Seq[Byte @unchecked] if (bs.forall( _.isInstanceOf[Byte] )) => s"0x${DatatypeConverter.printHexBinary( bs.toArray )}";
         case other                                                            => String.valueOf( other );
@@ -55,7 +55,7 @@ trait RestrictedType[SEARCHME, BELLY, SHIELD <: AnyVal with RestrictedType.Eleme
   // the converter or evidence param, and dies: "error: ambiguous reference to overloaded definition"
 
   implicit object WidenConverter extends Converter[SEARCHME,SHIELD,BELLY] {
-    def convert( shield : SHIELD ) : BELLY = shield.value
+    def convert( shield : SHIELD ) : BELLY = shield.widen
   }
 
   final def apply[T]( xb : T )( implicit converter : Converter[SEARCHME,T,BELLY] ) : SHIELD = {
