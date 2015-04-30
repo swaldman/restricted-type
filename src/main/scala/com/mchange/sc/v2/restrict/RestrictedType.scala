@@ -8,7 +8,7 @@ object RestrictedType {
     val MaxValueExclusive : Any;
     override def mathRep : String = s"[${MinValueInclusive},${MaxValueExclusive})"
   }
-  trait Element[+BELLY] extends Any {
+  trait Element[BELLY] extends Any {
     def value : BELLY;
     def unwrap : BELLY = value;
 
@@ -23,7 +23,7 @@ object RestrictedType {
       s"${this.getClass.getSimpleName()}(${valueStr})"
     }
   }
-  trait Converter[+SEARCHME,-T,+BELLY] {
+  trait Converter[+SEARCHME,T,BELLY] {
     def convert( t : T ) : BELLY; // may throw a CannotConvertException, implies that t cannot be converted, and so cannot belong to any restriction on BELLY
   }
 
