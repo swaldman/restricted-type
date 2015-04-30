@@ -16,6 +16,9 @@ object CommonConversions {
     implicit object BigIntByteConverter extends Converter[Nothing,BigInt,Byte] {
       def convert( i : BigInt ) : Byte = if (i >= Byte.MinValue && i <= Byte.MaxValue) i.toByte else cannotConvert( i, "Byte" );
     }
+    implicit object BigIntegerByteConverter extends Converter[Nothing,java.math.BigInteger,Byte] {
+      def convert( i : java.math.BigInteger ) : Byte = BigIntByteConverter.convert( BigInt(i) );
+    }
   }
   object IntegralToShort {
     implicit object IntShortConverter extends Converter[Nothing,Int,Short] {
@@ -27,6 +30,9 @@ object CommonConversions {
     implicit object BigIntShortConverter extends Converter[Nothing,BigInt,Short] {
       def convert( i : BigInt ) : Short = if (i >= Short.MinValue && i <= Short.MaxValue) i.toShort else cannotConvert( i, "Short" );
     }
+    implicit object BigIntegerShortConverter extends Converter[Nothing,java.math.BigInteger,Short] {
+      def convert( i : java.math.BigInteger ) : Short = BigIntShortConverter.convert( BigInt(i) );
+    }
   }
   object IntegralToInt {
     implicit object LongIntConverter extends Converter[Nothing,Long,Int] {
@@ -34,6 +40,9 @@ object CommonConversions {
     }
     implicit object BigIntIntConverter extends Converter[Nothing,BigInt,Int] {
       def convert( i : BigInt ) : Int = if (i >= Int.MinValue && i <= Int.MaxValue) i.toInt else cannotConvert( i, "Int" );
+    }
+    implicit object BigIntegerIntConverter extends Converter[Nothing,java.math.BigInteger,Int] {
+      def convert( i : java.math.BigInteger ) : Int = BigIntIntConverter.convert( BigInt(i) );
     }
   }
   object IntegralToLong {
@@ -43,10 +52,16 @@ object CommonConversions {
     implicit object BigIntLongConverter extends Converter[Nothing,BigInt,Long] {
       def convert( i : BigInt ) : Long = if (i >= Long.MinValue && i <= Long.MaxValue) i.toLong else cannotConvert( i, "Long" );
     }
+    implicit object BigIntegerLongConverter extends Converter[Nothing,java.math.BigInteger,Long] {
+      def convert( i : java.math.BigInteger ) : Long = BigIntLongConverter.convert( BigInt(i) );
+    }
   }
   object IntegralToBigInt {
     implicit object IntBigIntConverter extends Converter[Nothing,Int,BigInt]   { def convert( i : Int ) : BigInt = BigInt( i ); }
     implicit object LongBigIntConverter extends Converter[Nothing,Long,BigInt] { def convert( i : Long ) : BigInt = BigInt( i ); }
+    implicit object BigIntegerBigIntConverter extends Converter[Nothing,java.math.BigInteger,BigInt] { 
+      def convert( i : java.math.BigInteger ) : BigInt = BigInt( i ); 
+    }
   }
 
   object ToByteSeq {
