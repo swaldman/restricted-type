@@ -8,7 +8,7 @@ object RestrictedType {
     val MaxValueExclusive : Any;
     override def mathRep : String = s"[${MinValueInclusive},${MaxValueExclusive})"
   }
-  trait Element[BELLY] extends Any {
+  trait Element[+BELLY] extends Any {
     def value : BELLY;
     def unwrap : BELLY = value;
 
@@ -23,20 +23,40 @@ object RestrictedType {
       s"${this.getClass.getSimpleName()}(${valueStr})"
     }
   }
-  trait Converter[+SEARCHME,T,BELLY] {
+  trait Converter[+SEARCHME,-T,+BELLY] {
     def convert( t : T ) : BELLY; // may throw a CannotConvertException, implies that t cannot be converted, and so cannot belong to any restriction on BELLY
   }
+
 
   private val RecoverFalse : PartialFunction[Throwable,Boolean] = { case e : CannotConvertException => false }
   private val RecoverIAE   : PartialFunction[Throwable,Nothing] = { case e : CannotConvertException => throw new IllegalArgumentException( e.getMessage, e ) }
 }
-trait RestrictedType[SEARCHME, BELLY, SHIELD <: AnyVal] {
+trait RestrictedType[SEARCHME, BELLY, SHIELD <: AnyVal with RestrictedType.Element[BELLY]] {
   import RestrictedType.{Converter, RecoverFalse, RecoverIAE};
 
   protected def create( b : BELLY ) : SHIELD;
 
   def contains( b : BELLY ) : Boolean;
   def contains[T]( xb : T )( implicit converter : Converter[SEARCHME,T,BELLY] ) : Boolean = try this.contains( converter.convert( xb ) ) catch RecoverFalse;
+
+  // the converter below enables tests of the SHIELD type 
+  //
+  // alas, with widening and a superfluous test, but it will hopefully be rare to ask 
+  // whether a thing known at compile time to be a RestrictedTypeFoo 
+  // is in fact an element of RestrictedTypeFoo
+  //
+  // there ought to be some way to encode the tautological truth of this comparison at
+  // compile time. i have tried to find it, but failed.
+  //
+  //   def contains[T]( mustBeShield : T )( implicit evidence : T <:< SHIELD ) : Boolean = true;
+  //
+  // should work but doesn't. Even though it would find no converter for SHIELD (absent the converter just added below)
+  // when a call to contains( ... ) is made, the compiler complains about being required to supply ambiguous implicits, 
+  // the converter or evidence param, and dies: "error: ambiguous reference to overloaded definition"
+
+  implicit object WidenConverter extends Converter[SEARCHME,SHIELD,BELLY] {
+    def convert( shield : SHIELD ) : BELLY = shield.value
+  }
 
   final def apply[T]( xb : T )( implicit converter : Converter[SEARCHME,T,BELLY] ) : SHIELD = {
     apply( converter.convert( xb ) )
@@ -84,9 +104,11 @@ trait RestrictedType[SEARCHME, BELLY, SHIELD <: AnyVal] {
   def notMemberMessage( a : Any ) = s"${a} \u2209 ${mathRep}";
   def badValueMessage( a : Any ) = "Bad value: " + notMemberMessage( a )
 
+  private def badMessage( a : Any ) : Nothing = throw new IllegalArgumentException( badValueMessage( a ) )
+
   // convenience aliases of contain, including versions that throw well-messaged IllegalArgumentException rather than return false.
   final def elem_:  ( b : BELLY ) : Boolean = this.contains( b );
-  final def elem_!: ( b : BELLY ) : Boolean = this.contains( b ) || ( throw new IllegalArgumentException( badValueMessage( b ) ) );
+  final def elem_!: ( b : BELLY ) : Boolean = this.contains( b ) || badMessage( b );
 
   final def elem_:[T]  ( xb : T )( implicit converter : Converter[SEARCHME,T,BELLY] ) : Boolean = try this.elem_:( converter.convert( xb ) )  catch RecoverFalse;
   final def elem_!:[T] ( xb : T )( implicit converter : Converter[SEARCHME,T,BELLY] ) : Boolean = try this.elem_!:( converter.convert( xb ) ) catch RecoverIAE;
