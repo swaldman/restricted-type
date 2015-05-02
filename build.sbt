@@ -2,7 +2,7 @@ val nexus = "https://oss.sonatype.org/"
 val nexusSnapshots = nexus + "content/repositories/snapshots";
 val nexusReleases = nexus + "service/local/staging/deploy/maven2";
 
-val mainProjectName = "restricted-type";
+val coreProjectName = "restricted-type";
 
 val commonSettings = Seq(
   organization := "com.mchange",
@@ -52,20 +52,30 @@ val commonSettings = Seq(
 )
 
 def makeSubproject( subname : String ) = {
-  val projName = if ( subname == "main" ) mainProjectName else s"${mainProjectName}-${subname}";
+  val projName = if ( subname == "core" ) coreProjectName else s"${coreProjectName}-${subname}";
   Project( projName, file( subname ) )
     .settings( commonSettings : _* )
 }
 
-lazy val main = makeSubproject( "main" )
+lazy val core = makeSubproject( "core" )
   .settings(
-  libraryDependencies ++= Seq(
-    "com.mchange" %% "mchange-commons-scala" % "0.4.0-SNAPSHOT" changing(),
-    "org.scalacheck" %% "scalacheck" % "1.12.2" % "test"
+    libraryDependencies ++= Seq(
+      "com.mchange" %% "mchange-commons-scala" % "0.4.0-SNAPSHOT" changing(),
+      "org.scalacheck" %% "scalacheck" % "1.12.2" % "test"
+    )
   )
-)
 
-lazy val scalacheckUtil = makeSubproject( "scalacheck-util" ).dependsOn( main );
+lazy val scalacheckUtil = makeSubproject( "scalacheck-util" )
+  .dependsOn( core )
+  .settings(
+    libraryDependencies ++= Seq(
+      "org.scalacheck" %% "scalacheck" % "1.12.2" % "compile"
+    )
+  )
+
+// skip common settings and whatnot for this one 
+// let the macro pick the variable name for name
+lazy val root = project.in(file(".")).settings( publishArtifact := false, publish := {}, publishLocal := {} ).aggregate( core, scalacheckUtil );
 
 
 
