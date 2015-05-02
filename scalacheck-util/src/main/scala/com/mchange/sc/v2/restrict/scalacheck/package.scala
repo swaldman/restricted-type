@@ -8,7 +8,7 @@ package object scalacheck {
 
   private def gen[BELLY, SHIELD <: ShieldType[BELLY]]( factory : RestrictedType[_, BELLY, SHIELD ] )( implicit arb : Arbitrary[BELLY] ) : Gen[SHIELD] = {
     val gen : Gen[BELLY] = Arbitrary.arbitrary( arb );
-    gen.filter( _ elem_: factory ).map( factory(_) )
+    gen.suchThat( _ elem_: factory ).map( factory(_) )
   }
 
   private[scalacheck] def arbitrary[BELLY, SHIELD <: ShieldType[BELLY]]( factory : RestrictedType[_, BELLY, SHIELD ] )( implicit arb : Arbitrary[BELLY] ) : Arbitrary[SHIELD] = {

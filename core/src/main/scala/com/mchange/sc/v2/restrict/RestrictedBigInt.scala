@@ -21,7 +21,7 @@ object RestrictedBigInt {
     override def contains( value : BigInt ) : Boolean = value >= MinValueInclusive && value < MaxValueExclusive;
   }
   abstract class ZeroUntil[SHIELD <: ShieldType]( max : BigInt ) extends RestrictedBigInt.MinUntil[SHIELD](0, max );
-  abstract class UnsignedWithBitLength[SHIELD <: ShieldType]( bitLength : Int ) extends RestrictedBigInt.ZeroUntil[SHIELD]( AnyBigInt(1 << bitLength).widen );
+  abstract class UnsignedWithBitLength[SHIELD <: ShieldType]( bitLength : Int ) extends RestrictedBigInt.ZeroUntil[SHIELD]( AnyBigInt(ONE << bitLength).widen );
   abstract class UnsignedWithByteLength[SHIELD <: ShieldType]( byteLength : Int ) extends UnsignedWithBitLength[SHIELD]( byteLength * 8 );
   abstract class Unsigned[SHIELD <: ShieldType] extends RestrictedBigInt[SHIELD] {
     override def contains( value : BigInt ) : Boolean = value >= 0;

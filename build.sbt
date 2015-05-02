@@ -69,6 +69,7 @@ lazy val scalacheckUtil = makeSubproject( "scalacheck-util" )
   .dependsOn( core )
   .settings(
     libraryDependencies ++= Seq(
+      //"com.mchange" %% "mlog-scala" % "0.3.7-SNAPSHOT",
       "org.scalacheck" %% "scalacheck" % "1.12.2" % "compile"
     )
   )

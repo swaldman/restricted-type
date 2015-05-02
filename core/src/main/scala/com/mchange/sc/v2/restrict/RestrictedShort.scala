@@ -21,7 +21,7 @@ object RestrictedShort {
     override def contains( value : Short ) : Boolean = value >= MinValueInclusive && value < MaxValueExclusive;
   }
   abstract class ZeroUntil[SHIELD <: ShieldType]( max : Short ) extends RestrictedShort.MinUntil[SHIELD](0, max );
-  abstract class UnsignedWithBitLength[SHIELD <: ShieldType]( bitLength : Int ) extends RestrictedShort.ZeroUntil[SHIELD]( AnyShort(1 << bitLength).widen );
+  abstract class UnsignedWithBitLength[SHIELD <: ShieldType]( bitLength : Int ) extends RestrictedShort.ZeroUntil[SHIELD]( AnyShort(ONE << bitLength).widen );
   abstract class UnsignedWithByteLength[SHIELD <: ShieldType]( byteLength : Int ) extends UnsignedWithBitLength[SHIELD]( byteLength * 8 );
   abstract class Unsigned[SHIELD <: ShieldType] extends ZeroUntil[SHIELD]( Short.MaxValue );
 }

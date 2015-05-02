@@ -22,7 +22,7 @@ object RestrictedByte {
     override def contains( value : Byte ) : Boolean = value >= MinValueInclusive && value < MaxValueExclusive;
   }
   abstract class ZeroUntil[SHIELD <: ShieldType]( max : Byte ) extends RestrictedByte.MinUntil[SHIELD](0, max );
-  abstract class UnsignedWithBitLength[SHIELD <: ShieldType]( bitLength : Int ) extends RestrictedByte.ZeroUntil[SHIELD]( AnyByte(1 << bitLength).widen );
+  abstract class UnsignedWithBitLength[SHIELD <: ShieldType]( bitLength : Int ) extends RestrictedByte.ZeroUntil[SHIELD]( AnyByte(ONE << bitLength).widen );
   abstract class Unsigned[SHIELD <: ShieldType] extends ZeroUntil[SHIELD]( Byte.MaxValue );
 }
 trait RestrictedByte[SHIELD <: RestrictedByte.ShieldType] extends RestrictedType[CommonConversions.IntegralToByte.type,Byte,SHIELD];
