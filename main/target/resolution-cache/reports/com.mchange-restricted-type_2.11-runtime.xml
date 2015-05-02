@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="ivy-report.xsl"?>
+<ivy-report version="1.0">
+	<info
+		organisation="com.mchange"
+		module="restricted-type_2.11"
+		revision="0.0.1-SNAPSHOT"
+		conf="runtime"
+		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool"
+		date="20150501233831"/>
+	<dependencies>
+		<module organisation="com.mchange" name="mchange-commons-scala_2.11">
+			<revision name="0.4.0-SNAPSHOT" status="integration" pubdate="20150428164525" resolver="sbt-chain" artresolver="sbt-chain" homepage="https://github.com/swaldman/mchange-commons-scala" downloaded="false" searched="true" default="false" conf="default, compile, runtime, default(compile), master" position="1">
+				<license name="GNU Lesser General Public License, Version 2.1" url="http://www.gnu.org/licenses/lgpl-2.1.html"/>
+				<license name="Eclipse Public License, Version 1.0" url="http://www.eclipse.org/org/documents/epl-v10.html"/>
+				<metadata-artifact status="no" details="" size="3703" time="0" location="/Users/swaldman/.ivy2/cache/com.mchange/mchange-commons-scala_2.11/ivy-0.4.0-SNAPSHOT.xml" searched="true" origin-is-local="false" origin-location="https://oss.sonatype.org/content/repositories/snapshots/com/mchange/mchange-commons-scala_2.11/0.4.0-SNAPSHOT/mchange-commons-scala_2.11-0.4.0-SNAPSHOT.pom"/>
+				<caller organisation="com.mchange" name="restricted-type_2.11" conf="compile, runtime" rev="0.4.0-SNAPSHOT" rev-constraint-default="0.4.0-SNAPSHOT" rev-constraint-dynamic="0.4.0-SNAPSHOT" callerrev="0.0.1-SNAPSHOT"/>
+				<artifacts>
+					<artifact name="mchange-commons-scala_2.11" type="jar" ext="jar" status="no" details="" size="141982" time="0" location="/Users/swaldman/.ivy2/cache/com.mchange/mchange-commons-scala_2.11/jars/mchange-commons-scala_2.11-0.4.0-SNAPSHOT.jar">
+						<origin-location is-local="false" location="https://oss.sonatype.org/content/repositories/snapshots/com/mchange/mchange-commons-scala_2.11/0.4.0-SNAPSHOT/mchange-commons-scala_2.11-0.4.0-SNAPSHOT.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="com.mchange" name="mlog-scala_2.11">
+			<revision name="0.3.7-SNAPSHOT" status="integration" pubdate="20150319223614" resolver="sbt-chain" artresolver="sbt-chain" homepage="https://github.com/swaldman/mlog-scala" downloaded="false" searched="true" default="false" conf="master(*), compile, runtime(*), runtime, compile(*), master" position="6">
+				<license name="GNU Lesser General Public License, Version 2.1" url="http://www.gnu.org/licenses/lgpl-2.1.html"/>
+				<license name="Eclipse Public License, Version 1.0" url="http://www.eclipse.org/org/documents/epl-v10.html"/>
+				<metadata-artifact status="no" details="" size="2838" time="0" location="/Users/swaldman/.ivy2/cache/com.mchange/mlog-scala_2.11/ivy-0.3.7-SNAPSHOT.xml" searched="true" origin-is-local="false" origin-location="https://oss.sonatype.org/content/repositories/snapshots/com/mchange/mlog-scala_2.11/0.3.7-SNAPSHOT/mlog-scala_2.11-0.3.7-SNAPSHOT.pom"/>
+				<caller organisation="com.mchange" name="mchange-commons-scala_2.11" conf="default, compile, runtime, master" rev="0.3.7-SNAPSHOT" rev-constraint-default="0.3.7-SNAPSHOT" rev-constraint-dynamic="0.3.7-SNAPSHOT" callerrev="0.4.0-SNAPSHOT"/>
+				<artifacts>
+					<artifact name="mlog-scala_2.11" type="jar" ext="jar" status="no" details="" size="47644" time="0" location="/Users/swaldman/.ivy2/cache/com.mchange/mlog-scala_2.11/jars/mlog-scala_2.11-0.3.7-SNAPSHOT.jar">
+						<origin-location is-local="false" location="https://oss.sonatype.org/content/repositories/snapshots/com/mchange/mlog-scala_2.11/0.3.7-SNAPSHOT/mlog-scala_2.11-0.3.7-SNAPSHOT.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="com.mchange" name="mchange-commons-java">
+			<revision name="0.2.10-SNAPSHOT" status="integration" pubdate="20150429005711" resolver="sbt-chain" artresolver="sbt-chain" homepage="https://github.com/swaldman/mchange-commons-java" downloaded="false" searched="true" default="false" conf="master(*), compile, runtime(*), runtime, compile(*), master" position="7">
+				<license name="GNU Lesser General Public License, Version 2.1" url="http://www.gnu.org/licenses/lgpl-2.1.html"/>
+				<license name="Eclipse Public License, Version 1.0" url="http://www.eclipse.org/org/documents/epl-v10.html"/>
+				<metadata-artifact status="no" details="" size="3363" time="0" location="/Users/swaldman/.ivy2/cache/com.mchange/mchange-commons-java/ivy-0.2.10-SNAPSHOT.xml" searched="true" origin-is-local="false" origin-location="https://oss.sonatype.org/content/repositories/snapshots/com/mchange/mchange-commons-java/0.2.10-SNAPSHOT/mchange-commons-java-0.2.10-SNAPSHOT.pom"/>
+				<caller organisation="com.mchange" name="mchange-commons-scala_2.11" conf="default, compile, runtime, master" rev="0.2.10-SNAPSHOT" rev-constraint-default="0.2.10-SNAPSHOT" rev-constraint-dynamic="0.2.10-SNAPSHOT" callerrev="0.4.0-SNAPSHOT"/>
+				<caller organisation="com.mchange" name="mlog-scala_2.11" conf="compile, runtime" rev="0.2.10-SNAPSHOT" rev-constraint-default="0.2.10-SNAPSHOT" rev-constraint-dynamic="0.2.10-SNAPSHOT" callerrev="0.3.7-SNAPSHOT"/>
+				<artifacts>
+					<artifact name="mchange-commons-java" type="jar" ext="jar" status="no" details="" size="606174" time="0" location="/Users/swaldman/.ivy2/cache/com.mchange/mchange-commons-java/jars/mchange-commons-java-0.2.10-SNAPSHOT.jar">
+						<origin-location is-local="false" location="https://oss.sonatype.org/content/repositories/snapshots/com/mchange/mchange-commons-java/0.2.10-SNAPSHOT/mchange-commons-java-0.2.10-SNAPSHOT.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="com.typesafe.akka" name="akka-actor_2.11">
+			<revision name="2.3.6" status="release" pubdate="20140904235904" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://akka.io/" downloaded="false" searched="false" default="false" conf="master(*), compile, runtime(*), runtime, compile(*), master" position="4">
+				<license name="Apache License, Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0"/>
+				<metadata-artifact status="no" details="" size="2654" time="0" location="/Users/swaldman/.ivy2/cache/com.typesafe.akka/akka-actor_2.11/ivy-2.3.6.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.11/2.3.6/akka-actor_2.11-2.3.6.pom"/>
+				<caller organisation="com.mchange" name="mchange-commons-scala_2.11" conf="default, compile, runtime, master" rev="2.3.6" rev-constraint-default="2.3.6" rev-constraint-dynamic="2.3.6" callerrev="0.4.0-SNAPSHOT"/>
+				<artifacts>
+					<artifact name="akka-actor_2.11" type="jar" ext="jar" status="no" details="" size="2545886" time="0" location="/Users/swaldman/.ivy2/cache/com.typesafe.akka/akka-actor_2.11/jars/akka-actor_2.11-2.3.6.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.11/2.3.6/akka-actor_2.11-2.3.6.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="com.typesafe" name="config">
+			<revision name="1.2.1" status="release" pubdate="20140502075416" resolver="sbt-chain" artresolver="sbt-chain" homepage="https://github.com/typesafehub/config" downloaded="false" searched="false" default="false" conf="master(*), compile, runtime(*), runtime, compile(*), master" position="5">
+				<license name="Apache License, Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0"/>
+				<metadata-artifact status="no" details="" size="2734" time="0" location="/Users/swaldman/.ivy2/cache/com.typesafe/config/ivy-1.2.1.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/com/typesafe/config/1.2.1/config-1.2.1.pom"/>
+				<caller organisation="com.typesafe.akka" name="akka-actor_2.11" conf="compile, runtime" rev="1.2.1" rev-constraint-default="1.2.1" rev-constraint-dynamic="1.2.1" callerrev="2.3.6"/>
+				<artifacts>
+					<artifact name="config" type="bundle" ext="jar" status="no" details="" size="219554" time="0" location="/Users/swaldman/.ivy2/cache/com.typesafe/config/bundles/config-1.2.1.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/typesafe/config/1.2.1/config-1.2.1.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="org.scala-lang" name="scala-reflect">
+			<revision name="2.11.2" status="release" pubdate="20140722233911" resolver="public" artresolver="public" homepage="http://www.scala-lang.org/" extra-info.apiURL="http://www.scala-lang.org/api/2.11.2/" downloaded="true" searched="true" default="false" conf="master(*), compile, runtime(*), runtime, compile(*), master" position="3">
+				<license name="BSD 3-Clause" url="http://www.scala-lang.org/license.html"/>
+				<metadata-artifact status="successful" details="" size="1568" time="339" location="/Users/swaldman/.ivy2/cache/org.scala-lang/scala-reflect/ivy-2.11.2.xml" searched="true" original-local-location="/Users/swaldman/.ivy2/cache/org.scala-lang/scala-reflect/ivy-2.11.2.xml.original" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.2/scala-reflect-2.11.2.pom"/>
+				<caller organisation="com.mchange" name="mchange-commons-scala_2.11" conf="default, compile, runtime, master" rev="2.11.2" rev-constraint-default="2.11.2" rev-constraint-dynamic="2.11.2" callerrev="0.4.0-SNAPSHOT"/>
+				<artifacts>
+					<artifact name="scala-reflect" type="jar" ext="jar" status="no" details="" size="4391629" time="0" location="/Users/swaldman/.ivy2/cache/org.scala-lang/scala-reflect/jars/scala-reflect-2.11.2.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/scala-lang/scala-reflect/2.11.2/scala-reflect-2.11.2.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="org.scala-lang.modules" name="scala-parser-combinators_2.11">
+			<revision name="1.0.2" status="release" pubdate="20140722234535" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.scala-lang.org/" downloaded="false" searched="false" default="false" conf="master(*), compile, runtime(*), runtime, compile(*), master" position="2">
+				<license name="BSD 3-clause" url="http://opensource.org/licenses/BSD-3-Clause"/>
+				<metadata-artifact status="no" details="" size="2785" time="0" location="/Users/swaldman/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.11/ivy-1.0.2.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.2/scala-parser-combinators_2.11-1.0.2.pom"/>
+				<caller organisation="com.mchange" name="mchange-commons-scala_2.11" conf="default, compile, runtime, master" rev="1.0.2" rev-constraint-default="1.0.2" rev-constraint-dynamic="1.0.2" callerrev="0.4.0-SNAPSHOT"/>
+				<artifacts>
+					<artifact name="scala-parser-combinators_2.11" type="bundle" ext="jar" status="no" details="" size="416065" time="0" location="/Users/swaldman/.ivy2/cache/org.scala-lang.modules/scala-parser-combinators_2.11/bundles/scala-parser-combinators_2.11-1.0.2.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.2/scala-parser-combinators_2.11-1.0.2.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+		</module>
+		<module organisation="org.scala-lang" name="scala-library">
+			<revision name="2.11.5" status="release" pubdate="20150106163212" resolver="public" artresolver="public" homepage="http://www.scala-lang.org/" extra-info.apiURL="http://www.scala-lang.org/api/2.11.5/" downloaded="true" searched="true" default="false" conf="default, compile, runtime, default(compile), master, master(*), runtime(*), compile(*)" position="0">
+				<license name="BSD 3-Clause" url="http://www.scala-lang.org/license.html"/>
+				<metadata-artifact status="successful" details="" size="1424" time="270" location="/Users/swaldman/.ivy2/cache/org.scala-lang/scala-library/ivy-2.11.5.xml" searched="true" original-local-location="/Users/swaldman/.ivy2/cache/org.scala-lang/scala-library/ivy-2.11.5.xml.original" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.5/scala-library-2.11.5.pom"/>
+				<caller organisation="com.mchange" name="mchange-commons-scala_2.11" conf="default, compile, runtime, master" rev="2.11.2" rev-constraint-default="2.11.2" rev-constraint-dynamic="2.11.2" callerrev="0.4.0-SNAPSHOT"/>
+				<caller organisation="com.typesafe.akka" name="akka-actor_2.11" conf="compile, runtime" rev="2.11.2" rev-constraint-default="2.11.2" rev-constraint-dynamic="2.11.2" callerrev="2.3.6"/>
+				<caller organisation="com.mchange" name="restricted-type_2.11" conf="compile, runtime" rev="2.11.5" rev-constraint-default="2.11.5" rev-constraint-dynamic="2.11.5" callerrev="0.0.1-SNAPSHOT"/>
+				<caller organisation="org.scala-lang.modules" name="scala-parser-combinators_2.11" conf="compile, runtime" rev="2.11.1" rev-constraint-default="2.11.1" rev-constraint-dynamic="2.11.1" callerrev="1.0.2"/>
+				<caller organisation="com.mchange" name="mlog-scala_2.11" conf="compile, runtime" rev="2.11.2" rev-constraint-default="2.11.2" rev-constraint-dynamic="2.11.2" callerrev="0.3.7-SNAPSHOT"/>
+				<caller organisation="org.scala-lang" name="scala-reflect" conf="compile, runtime" rev="2.11.2" rev-constraint-default="2.11.2" rev-constraint-dynamic="2.11.2" callerrev="2.11.2"/>
+				<artifacts>
+					<artifact name="scala-library" type="jar" ext="jar" status="no" details="" size="5576839" time="0" location="/Users/swaldman/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.5.jar">
+						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/scala-lang/scala-library/2.11.5/scala-library-2.11.5.jar"/>
+					</artifact>
+				</artifacts>
+			</revision>
+			<revision name="2.11.1" evicted="latest-revision" evicted-reason="" downloaded="false" searched="false" conf="master(*), compile, runtime(*), runtime, compile(*)" position="-1">
+				<evicted-by rev="2.11.5"/>
+				<caller organisation="org.scala-lang.modules" name="scala-parser-combinators_2.11" conf="compile, runtime" rev="2.11.1" rev-constraint-default="2.11.1" rev-constraint-dynamic="2.11.1" callerrev="1.0.2"/>
+				<artifacts>
+				</artifacts>
+			</revision>
+			<revision name="2.11.2" evicted="latest-revision" evicted-reason="" downloaded="false" searched="false" conf="master(*), compile, runtime(*), runtime, compile(*), master" position="-1">
+				<evicted-by rev="2.11.5"/>
+				<caller organisation="com.mchange" name="mchange-commons-scala_2.11" conf="default, compile, runtime, master" rev="2.11.2" rev-constraint-default="2.11.2" rev-constraint-dynamic="2.11.2" callerrev="0.4.0-SNAPSHOT"/>
+				<caller organisation="com.typesafe.akka" name="akka-actor_2.11" conf="compile, runtime" rev="2.11.2" rev-constraint-default="2.11.2" rev-constraint-dynamic="2.11.2" callerrev="2.3.6"/>
+				<caller organisation="org.scala-lang.modules" name="scala-parser-combinators_2.11" conf="compile, runtime" rev="2.11.1" rev-constraint-default="2.11.1" rev-constraint-dynamic="2.11.1" callerrev="1.0.2"/>
+				<caller organisation="com.mchange" name="mlog-scala_2.11" conf="compile, runtime" rev="2.11.2" rev-constraint-default="2.11.2" rev-constraint-dynamic="2.11.2" callerrev="0.3.7-SNAPSHOT"/>
+				<caller organisation="org.scala-lang" name="scala-reflect" conf="compile, runtime" rev="2.11.2" rev-constraint-default="2.11.2" rev-constraint-dynamic="2.11.2" callerrev="2.11.2"/>
+				<artifacts>
+				</artifacts>
+			</revision>
+		</module>
+	</dependencies>
+</ivy-report>
