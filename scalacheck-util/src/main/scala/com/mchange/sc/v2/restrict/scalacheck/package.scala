@@ -15,7 +15,12 @@ package object scalacheck {
     Arbitrary( gen( factory )( arb ) )
   }
 
+  private[scalacheck] def arbitraryFromGen[BELLY, SHIELD <: ShieldType[BELLY]]( factory : RestrictedType[_, BELLY, SHIELD ], gen : Gen[BELLY] ) : Arbitrary[SHIELD] = {
+    arbitrary( factory )( Arbitrary( gen ) )
+  }
+
   implicit class Decorator[BELLY, SHIELD <: ShieldType[BELLY]]( val factory : RestrictedType[_, BELLY, SHIELD ] ) extends AnyVal {
     def arbitrary( implicit arb : Arbitrary[BELLY] ) = scalacheck.arbitrary( factory );
+    def arbitraryFromGen( gen : Gen[BELLY] )         = scalacheck.arbitraryFromGen( factory, gen );
   }
 }
