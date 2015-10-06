@@ -110,4 +110,8 @@ object CommonConversions {
       def convert( seq : mutable.Seq[Byte] ) : immutable.Seq[Byte] = ImmutableArraySeq.Byte.createNoCopy( seq.toArray );
     }
   }
+
+  object ToString {
+    // no automatic conversions
+  }
 }
