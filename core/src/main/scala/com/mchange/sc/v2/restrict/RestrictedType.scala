@@ -97,7 +97,7 @@ trait RestrictedType[SEARCHME, BELLY, SHIELD <: AnyVal with RestrictedType.Eleme
   }
 
   final def apply( b : BELLY ) : SHIELD = {
-    val xb : BELLY = transform(b)
+    val xb = pretransform(b)
     require( xb elem_!: this );
     create( xb );
   }
@@ -108,12 +108,12 @@ trait RestrictedType[SEARCHME, BELLY, SHIELD <: AnyVal with RestrictedType.Eleme
    *  for a noncompilant value to be passed.
    */  
   final def assert( b : BELLY ) : SHIELD = {
-    val xb : BELLY = transform(b)
+    val xb = pretransform(b)
     Predef.assert( xb elem_!: this );
     create( xb );
   }
 
-  protected def transform( b : BELLY ) : BELLY = b
+  protected def pretransform( b : BELLY ) : BELLY = b
 
   //final def unsafe( b : BELLY ) : SHIELD = create(b);
 
