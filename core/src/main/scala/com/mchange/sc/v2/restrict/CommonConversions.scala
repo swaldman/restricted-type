@@ -104,10 +104,10 @@ object CommonConversions {
     import com.mchange.sc.v2.collection.immutable.ImmutableArraySeq;
 
     implicit object ByteArrayConverter extends Converter[Nothing,Array[Byte],immutable.Seq[Byte]] {
-      def convert( arr : Array[Byte] ) : immutable.Seq[Byte] = ImmutableArraySeq.Byte( arr );
+      def convert( arr : Array[Byte] ) : immutable.Seq[Byte] = ImmutableArraySeq.Byte( arr ); // we do need a copy here
     }
     implicit object MutableSeqConverter extends Converter[Nothing,mutable.Seq[Byte],immutable.Seq[Byte]] {
-      def convert( seq : mutable.Seq[Byte] ) : immutable.Seq[Byte] = ImmutableArraySeq.Byte.createNoCopy( seq.toArray );
+      def convert( seq : mutable.Seq[Byte] ) : immutable.Seq[Byte] = ImmutableArraySeq.Byte.createNoCopy( seq.toArray ); //XXX: Is this safe?
     }
   }
 

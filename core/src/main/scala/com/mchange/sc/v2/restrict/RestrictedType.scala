@@ -107,6 +107,15 @@ trait RestrictedType[SEARCHME, BELLY, SHIELD <: AnyVal with RestrictedType.Eleme
    *  assert. Should only be used when it would be an internal, program error
    *  for a noncompilant value to be passed.
    */  
+  final def assert[T]( xb : T )( implicit converter : Converter[SEARCHME,T,BELLY] ) : SHIELD = {
+    assert( converter.convert( xb ) )
+  }
+
+  /**
+   *  This method is very much like apply, but the "type-check" is an elidable
+   *  assert. Should only be used when it would be an internal, program error
+   *  for a noncompilant value to be passed.
+   */  
   final def assert( b : BELLY ) : SHIELD = {
     val xb = pretransform(b)
     Predef.assert( xb elem_!: this );
