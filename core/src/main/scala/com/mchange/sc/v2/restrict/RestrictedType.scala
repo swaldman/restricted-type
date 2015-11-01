@@ -48,11 +48,11 @@ object RestrictedType {
     def unwrap : BELLY = widen;
 
     override def toString : String = {
-      import javax.xml.bind.DatatypeConverter;
+      import com.mchange.lang.ByteUtils;
 
       val valueStr = widen match {
-        case ba : Array[Byte]                                                 => s"0x${DatatypeConverter.printHexBinary( ba )}";
-        case bs : Seq[Byte @unchecked] if (bs.forall( _.isInstanceOf[Byte] )) => s"0x${DatatypeConverter.printHexBinary( bs.toArray )}";
+        case ba : Array[Byte]                                                 => s"0x${ByteUtils.toLowercaseHexAscii( ba )}";
+        case bs : Seq[Byte @unchecked] if (bs.forall( _.isInstanceOf[Byte] )) => s"0x${ByteUtils.toLowercaseHexAscii( bs.toArray )}";
         case other                                                            => String.valueOf( other );
       }
       s"${this.getClass.getSimpleName()}(${valueStr})"
