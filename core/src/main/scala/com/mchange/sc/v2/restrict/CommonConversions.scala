@@ -107,7 +107,7 @@ object CommonConversions {
       def convert( arr : Array[Byte] ) : immutable.Seq[Byte] = ImmutableArraySeq.Byte( arr ); // we do need a copy here
     }
     implicit object MutableSeqConverter extends Converter[Nothing,mutable.Seq[Byte],immutable.Seq[Byte]] {
-      def convert( seq : mutable.Seq[Byte] ) : immutable.Seq[Byte] = ImmutableArraySeq.Byte.createNoCopy( seq.toArray ); //XXX: Is this safe?
+      def convert( seq : mutable.Seq[Byte] ) : immutable.Seq[Byte] = ImmutableArraySeq.Byte.create( seq.toArray ); //we need a copy here too, consider e.g. WrappedArray
     }
   }
 
