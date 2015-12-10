@@ -36,9 +36,9 @@
 package com.mchange.sc.v2.restrict;
 
 object RestrictedShort {
-  type ShieldType = AnyVal with RestrictedType.Element[Short];
+  type Shield = AnyVal with RestrictedType.Element[Short];
 
-  // 2.11 compiler inadequacy, does not recognize ShieldType as an extendable type, alas.
+  // 2.11 compiler inadequacy, does not recognize Shield as an extendable type, alas.
 
   object AnyShort extends RestrictedShort[AnyShort] {
     override def contains( value : Short ) : Boolean = true;
@@ -51,13 +51,13 @@ object RestrictedShort {
   }
   class UnsignedShort private ( val widen : Short ) extends AnyVal with RestrictedType.Element[Short];
 
-  abstract class MinUntil[SHIELD <: ShieldType]( val MinValueInclusive : Short, val MaxValueExclusive : Short ) extends RestrictedShort[SHIELD] with RestrictedType.MinUntil {
+  abstract class MinUntil[SHIELD <: Shield]( val MinValueInclusive : Short, val MaxValueExclusive : Short ) extends RestrictedShort[SHIELD] with RestrictedType.MinUntil {
     require( MaxValueExclusive > MinValueInclusive );
     override def contains( value : Short ) : Boolean = value >= MinValueInclusive && value < MaxValueExclusive;
   }
-  abstract class ZeroUntil[SHIELD <: ShieldType]( max : Short ) extends RestrictedShort.MinUntil[SHIELD](0, max );
-  abstract class UnsignedWithBitLength[SHIELD <: ShieldType]( bitLength : Int ) extends RestrictedShort.ZeroUntil[SHIELD]( AnyShort(ONE << bitLength).widen );
-  abstract class UnsignedWithByteLength[SHIELD <: ShieldType]( byteLength : Int ) extends UnsignedWithBitLength[SHIELD]( byteLength * 8 );
-  abstract class Unsigned[SHIELD <: ShieldType] extends ZeroUntil[SHIELD]( Short.MaxValue );
+  abstract class ZeroUntil[SHIELD <: Shield]( max : Short ) extends RestrictedShort.MinUntil[SHIELD](0, max );
+  abstract class UnsignedWithBitLength[SHIELD <: Shield]( bitLength : Int ) extends RestrictedShort.ZeroUntil[SHIELD]( AnyShort(ONE << bitLength).widen );
+  abstract class UnsignedWithByteLength[SHIELD <: Shield]( byteLength : Int ) extends UnsignedWithBitLength[SHIELD]( byteLength * 8 );
+  abstract class Unsigned[SHIELD <: Shield] extends ZeroUntil[SHIELD]( Short.MaxValue );
 }
-trait RestrictedShort[SHIELD <: RestrictedShort.ShieldType] extends RestrictedType[CommonConversions.IntegralToShort.type,Short,SHIELD];
+trait RestrictedShort[SHIELD <: RestrictedShort.Shield] extends RestrictedType[CommonConversions.IntegralToShort.type,Short,SHIELD];

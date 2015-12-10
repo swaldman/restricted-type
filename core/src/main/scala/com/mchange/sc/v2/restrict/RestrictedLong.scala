@@ -36,9 +36,9 @@
 package com.mchange.sc.v2.restrict;
 
 object RestrictedLong {
-  type ShieldType = AnyVal with RestrictedType.Element[Long];
+  type Shield = AnyVal with RestrictedType.Element[Long];
 
-  // 2.11 compiler inadequacy, does not recognize ShieldType as an extendable type, alas.
+  // 2.11 compiler inadequacy, does not recognize Shield as an extendable type, alas.
 
   object AnyLong extends RestrictedLong[AnyLong] {
     override def contains( value : Long ) : Boolean = true;
@@ -51,14 +51,14 @@ object RestrictedLong {
   }
   class UnsignedLong private ( val widen : Long ) extends AnyVal with RestrictedType.Element[Long];
 
-  abstract class MinUntil[SHIELD <: ShieldType]( val MinValueInclusive : Long, val MaxValueExclusive : Long ) 
+  abstract class MinUntil[SHIELD <: Shield]( val MinValueInclusive : Long, val MaxValueExclusive : Long ) 
       extends RestrictedLong[SHIELD] with RestrictedType.MinUntil {
     require( MaxValueExclusive > MinValueInclusive );
     override def contains( value : Long ) : Boolean = value >= MinValueInclusive && value < MaxValueExclusive;
   }
-  abstract class ZeroUntil[SHIELD <: ShieldType]( max : Long ) extends RestrictedLong.MinUntil[SHIELD](0, max );
-  abstract class UnsignedWithBitLength[SHIELD <: ShieldType]( bitLength : Int ) extends RestrictedLong.ZeroUntil[SHIELD]( AnyLong(ONE << bitLength).widen );
-  abstract class UnsignedWithByteLength[SHIELD <: ShieldType]( byteLength : Int ) extends UnsignedWithBitLength[SHIELD]( byteLength * 8 );
-  abstract class Unsigned[SHIELD <: ShieldType] extends ZeroUntil[SHIELD]( Long.MaxValue );
+  abstract class ZeroUntil[SHIELD <: Shield]( max : Long ) extends RestrictedLong.MinUntil[SHIELD](0, max );
+  abstract class UnsignedWithBitLength[SHIELD <: Shield]( bitLength : Int ) extends RestrictedLong.ZeroUntil[SHIELD]( AnyLong(ONE << bitLength).widen );
+  abstract class UnsignedWithByteLength[SHIELD <: Shield]( byteLength : Int ) extends UnsignedWithBitLength[SHIELD]( byteLength * 8 );
+  abstract class Unsigned[SHIELD <: Shield] extends ZeroUntil[SHIELD]( Long.MaxValue );
 }
-trait RestrictedLong[SHIELD <: RestrictedLong.ShieldType] extends RestrictedType[CommonConversions.IntegralToLong.type,Long,SHIELD];
+trait RestrictedLong[SHIELD <: RestrictedLong.Shield] extends RestrictedType[CommonConversions.IntegralToLong.type,Long,SHIELD];

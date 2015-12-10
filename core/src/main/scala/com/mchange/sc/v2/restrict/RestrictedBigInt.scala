@@ -36,9 +36,9 @@
 package com.mchange.sc.v2.restrict;
 
 object RestrictedBigInt {
-  type ShieldType = AnyVal with RestrictedType.Element[BigInt];
+  type Shield = AnyVal with RestrictedType.Element[BigInt];
 
-  // 2.11 compiler inadequacy, does not recognize ShieldType as an extendable type, alas.
+  // 2.11 compiler inadequacy, does not recognize Shield as an extendable type, alas.
 
   object AnyBigInt extends RestrictedBigInt[AnyBigInt] {
     override def contains( value : BigInt ) : Boolean = true;
@@ -51,16 +51,16 @@ object RestrictedBigInt {
   }
   final class UnsignedBigInt private ( val widen : BigInt ) extends AnyVal with RestrictedType.Element[BigInt];
 
-  abstract class MinUntil[SHIELD <: ShieldType]( val MinValueInclusive : BigInt, val MaxValueExclusive : BigInt ) extends RestrictedBigInt[SHIELD] with RestrictedType.MinUntil {
+  abstract class MinUntil[SHIELD <: Shield]( val MinValueInclusive : BigInt, val MaxValueExclusive : BigInt ) extends RestrictedBigInt[SHIELD] with RestrictedType.MinUntil {
     require( MaxValueExclusive > MinValueInclusive );
     override def contains( value : BigInt ) : Boolean = value >= MinValueInclusive && value < MaxValueExclusive;
   }
-  abstract class ZeroUntil[SHIELD <: ShieldType]( max : BigInt ) extends RestrictedBigInt.MinUntil[SHIELD](0, max );
-  abstract class UnsignedWithBitLength[SHIELD <: ShieldType]( bitLength : Int ) extends RestrictedBigInt.ZeroUntil[SHIELD]( AnyBigInt(ONE << bitLength).widen );
-  abstract class UnsignedWithByteLength[SHIELD <: ShieldType]( byteLength : Int ) extends UnsignedWithBitLength[SHIELD]( byteLength * 8 );
-  abstract class Unsigned[SHIELD <: ShieldType] extends RestrictedBigInt[SHIELD] {
+  abstract class ZeroUntil[SHIELD <: Shield]( max : BigInt ) extends RestrictedBigInt.MinUntil[SHIELD](0, max );
+  abstract class UnsignedWithBitLength[SHIELD <: Shield]( bitLength : Int ) extends RestrictedBigInt.ZeroUntil[SHIELD]( AnyBigInt(ONE << bitLength).widen );
+  abstract class UnsignedWithByteLength[SHIELD <: Shield]( byteLength : Int ) extends UnsignedWithBitLength[SHIELD]( byteLength * 8 );
+  abstract class Unsigned[SHIELD <: Shield] extends RestrictedBigInt[SHIELD] {
     override def contains( value : BigInt ) : Boolean = value >= 0;
     override def mathRep = "[0,\u221E)";
   }
 }
-trait RestrictedBigInt[SHIELD <: RestrictedBigInt.ShieldType] extends RestrictedType[CommonConversions.IntegralToBigInt.type,BigInt,SHIELD];
+trait RestrictedBigInt[SHIELD <: RestrictedBigInt.Shield] extends RestrictedType[CommonConversions.IntegralToBigInt.type,BigInt,SHIELD];
