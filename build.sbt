@@ -6,7 +6,7 @@ val coreProjectName = "restricted-type";
 
 val commonSettings = Seq(
   organization := "com.mchange",
-  version := "0.0.2-SNAPSHOT",
+  version := "0.0.2",
   scalaVersion := "2.11.8",
   crossScalaVersions := Seq("2.10.6", "2.11.8"),
   scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked"),
@@ -61,7 +61,7 @@ def makeSubproject( subname : String ) = {
 lazy val core = makeSubproject( "core" )
   .settings(
     libraryDependencies ++= Seq(
-      "com.mchange" %% "mchange-commons-scala" % "0.4.1",
+      "com.mchange" %% "mchange-commons-scala" % "0.4.2",
       "org.scalacheck" %% "scalacheck" % "1.12.2" % "test"
     )
   )
@@ -74,9 +74,9 @@ lazy val scalacheckUtil = makeSubproject( "scalacheck-util" )
     )
   )
 
-// skip common settings and whatnot for this one 
+// this is a throwaway
 // let the macro pick the variable name for name
-lazy val root = project.in(file(".")).settings( publishArtifact := false, publish := {}, publishLocal := {} ).aggregate( core, scalacheckUtil );
+lazy val root = project.in(file(".")).settings( commonSettings : _* ).settings( publishArtifact := false, publish := {}, publishLocal := {} ).aggregate( core, scalacheckUtil );
 
 
 
