@@ -62,5 +62,10 @@ object RestrictedBigInt {
     override def contains( value : BigInt ) : Boolean = value >= 0;
     override def mathRep = "[0,\u221E)";
   }
+
+  abstract class TwosComplementWithBitLength[SHIELD <: Shield]( bitLength : Int ) extends RestrictedBigInt.MinUntil[SHIELD]( ONE << (bitLength/2), ONE << (bitLength/2) ) {
+    require( bitLength % 2 == 0, s"RestrictedBigInt.TwosComplementWithBitLength requires an even bit length, found ${bitLength}." )
+  }
+  abstract class TwosComplementWithByteLength[SHIELD <: Shield]( byteLength : Int ) extends RestrictedBigInt.TwosComplementWithBitLength[SHIELD]( byteLength * 8 )
 }
 trait RestrictedBigInt[SHIELD <: RestrictedBigInt.Shield] extends RestrictedType[CommonConversions.IntegralToBigInt.type,BigInt,SHIELD];

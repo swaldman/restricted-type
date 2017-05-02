@@ -60,5 +60,10 @@ object RestrictedInt {
   abstract class UnsignedWithBitLength[SHIELD <: Shield]( bitLength : Int ) extends RestrictedInt.ZeroUntil[SHIELD]( AnyInt(ONE << bitLength).widen );
   abstract class UnsignedWithByteLength[SHIELD <: Shield]( byteLength : Int ) extends UnsignedWithBitLength[SHIELD]( byteLength * 8 );
   abstract class Unsigned[SHIELD <: Shield] extends ZeroUntil[SHIELD]( Int.MaxValue );
+
+  abstract class TwosComplementWithBitLength[SHIELD <: Shield]( bitLength : Int ) extends RestrictedInt.MinUntil[SHIELD]( -UnsignedInt(ONE << (bitLength/2)).widen, UnsignedInt(ONE << (bitLength/2)).widen ) {
+    require( bitLength % 2 == 0, s"RestrictedInt.TwosComplementWithBitLength requires an even bit length, found ${bitLength}." )
+  }
+  abstract class TwosComplementWithByteLength[SHIELD <: Shield]( byteLength : Int ) extends RestrictedInt.TwosComplementWithBitLength[SHIELD]( byteLength * 8 )
 }
 trait RestrictedInt[SHIELD <: RestrictedInt.Shield] extends RestrictedType[CommonConversions.IntegralToInt.type,Int,SHIELD];
