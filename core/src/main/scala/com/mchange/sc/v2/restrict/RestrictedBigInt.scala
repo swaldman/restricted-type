@@ -55,7 +55,7 @@ object RestrictedBigInt {
     require( MaxValueExclusive > MinValueInclusive );
     override def contains( value : BigInt ) : Boolean = value >= MinValueInclusive && value < MaxValueExclusive;
   }
-  abstract class ZeroUntil[SHIELD <: Shield]( max : BigInt ) extends RestrictedBigInt.MinUntil[SHIELD](0, max );
+  abstract class ZeroUntil[SHIELD <: Shield]( until : BigInt ) extends RestrictedBigInt.MinUntil[SHIELD](0, until );
   abstract class UnsignedWithBitLength[SHIELD <: Shield]( bitLength : Int ) extends RestrictedBigInt.ZeroUntil[SHIELD]( AnyBigInt(ONE << bitLength).widen );
   abstract class UnsignedWithByteLength[SHIELD <: Shield]( byteLength : Int ) extends UnsignedWithBitLength[SHIELD]( byteLength * 8 );
   abstract class Unsigned[SHIELD <: Shield] extends RestrictedBigInt[SHIELD] {
@@ -63,7 +63,7 @@ object RestrictedBigInt {
     override def mathRep = "[0,\u221E)";
   }
 
-  abstract class TwosComplementWithBitLength[SHIELD <: Shield]( bitLength : Int ) extends RestrictedBigInt.MinUntil[SHIELD]( ONE << (bitLength/2), ONE << (bitLength/2) ) {
+  abstract class TwosComplementWithBitLength[SHIELD <: Shield]( bitLength : Int ) extends RestrictedBigInt.MinUntil[SHIELD]( -(ONE << (bitLength/2)), ONE << (bitLength/2) ) {
     require( bitLength % 2 == 0, s"RestrictedBigInt.TwosComplementWithBitLength requires an even bit length, found ${bitLength}." )
   }
   abstract class TwosComplementWithByteLength[SHIELD <: Shield]( byteLength : Int ) extends RestrictedBigInt.TwosComplementWithBitLength[SHIELD]( byteLength * 8 )
