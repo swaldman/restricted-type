@@ -8,7 +8,7 @@ val commonSettings = Seq(
   organization := "com.mchange",
   version := "0.0.3-SNAPSHOT",
   scalaVersion := "2.11.8",
-  crossScalaVersions := Seq("2.10.6", "2.11.8"),
+  crossScalaVersions := Seq("2.10.6", "2.11.8", "2.12.2"),
   scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked"),
   resolvers += ("releases" at nexusReleases),
   resolvers += ("snapshots" at nexusSnapshots),
@@ -61,8 +61,8 @@ def makeSubproject( subname : String ) = {
 lazy val core = makeSubproject( "core" )
   .settings(
     libraryDependencies ++= Seq(
-      "com.mchange" %% "mchange-commons-scala" % "0.4.2",
-      "org.scalacheck" %% "scalacheck" % "1.12.2" % "test"
+      "com.mchange" %% "mchange-commons-scala" % "0.4.3-SNAPSHOT",
+      "org.scalacheck" %% "scalacheck" % "1.13.5" % "test"
     )
   )
 
@@ -70,7 +70,7 @@ lazy val scalacheckUtil = makeSubproject( "scalacheck-util" )
   .dependsOn( core )
   .settings(
     libraryDependencies ++= Seq(
-      "org.scalacheck" %% "scalacheck" % "1.12.2" % "compile"
+      "org.scalacheck" %% "scalacheck" % "1.13.5" % "compile"
     )
   )
 
