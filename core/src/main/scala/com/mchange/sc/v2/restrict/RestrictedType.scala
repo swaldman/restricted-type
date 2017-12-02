@@ -33,7 +33,9 @@
  * 
  */
 
-package com.mchange.sc.v2.restrict;
+package com.mchange.sc.v2.restrict
+
+import scala.math.Ordering
 
 object RestrictedType {
   trait MinUntil {
@@ -42,6 +44,30 @@ object RestrictedType {
     val MinValueInclusive : Any;
     val MaxValueExclusive : Any;
     override def mathRep : String = s"[${MinValueInclusive},${MaxValueExclusive})"
+  }
+  object Element {
+    class ElementOrdering[BELLY, T <: Element[BELLY]]()( implicit io : Ordering[BELLY] ) extends Ordering[T] {
+      def compare( x : T, y : T ) = io.compare( x.widen, y.widen )
+    }
+
+    /*
+     * This method seems too hard for the compiler to resolve as an implicit. we get "divergent implicit expansion" errors
+     * 
+     * You can call the method explicitly, as in
+     * 
+     *    implicit val ordering = RestrictedType.Element.ordering[Tuple7,MyType]
+     * 
+     *    val ts = immutable.TreeSet.empty[Tuple7]
+     * 
+     * For now we define some easier-to-resolve special cases as implicits, below.
+     */ 
+    def ordering[BELLY, T <: Element[BELLY]]( implicit io : Ordering[BELLY] ) : Ordering[T] = new ElementOrdering[BELLY,T]()(io)
+
+    implicit def byteOrdering[T <: Element[Byte]] = ordering[Byte,T]
+    implicit def shortOrdering[T <: Element[Short]] = ordering[Short,T]
+    implicit def intOrdering[T <: Element[Int]] = ordering[Int,T]
+    implicit def longOrdering[T <: Element[Long]] = ordering[Long,T]
+    implicit def bigIntOrdering[T <: Element[BigInt]] = ordering[BigInt,T]
   }
   trait Element[BELLY] extends Any {
     def widen : BELLY;
