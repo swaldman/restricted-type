@@ -38,6 +38,12 @@ package com.mchange.sc.v2.restrict
 import scala.math.Ordering
 
 object RestrictedType {
+  trait AtLeast {
+    self : RestrictedType[_,_,_] =>
+
+    val MinValueInclusive : Any;
+    override def mathRep : String = s"[${MinValueInclusive},\u221E)"
+  }
   trait MinUntil {
     self : RestrictedType[_,_,_] =>
 

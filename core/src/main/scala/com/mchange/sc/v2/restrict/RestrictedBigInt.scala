@@ -51,6 +51,9 @@ object RestrictedBigInt {
   }
   final class UnsignedBigInt private ( val widen : BigInt ) extends AnyVal with RestrictedType.Element[BigInt];
 
+  abstract class AtLeast[SHIELD <: Shield]( val MinValueInclusive : BigInt ) extends RestrictedBigInt[SHIELD] with RestrictedType.AtLeast {
+    override def contains( value : BigInt ) : Boolean = value >= MinValueInclusive;
+  }
   abstract class MinUntil[SHIELD <: Shield]( val MinValueInclusive : BigInt, val MaxValueExclusive : BigInt ) extends RestrictedBigInt[SHIELD] with RestrictedType.MinUntil {
     require( MaxValueExclusive > MinValueInclusive );
     override def contains( value : BigInt ) : Boolean = value >= MinValueInclusive && value < MaxValueExclusive;
