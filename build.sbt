@@ -61,7 +61,7 @@ def makeSubproject( subname : String ) = {
 lazy val core = makeSubproject( "core" )
   .settings(
     libraryDependencies ++= Seq(
-      "com.mchange" %% "mchange-commons-scala" % "0.4.4",
+      "com.mchange" %% "mchange-commons-scala" % "0.4.7",
       "org.scalacheck" %% "scalacheck" % "1.13.5" % "test"
     )
   )
