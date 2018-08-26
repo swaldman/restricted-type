@@ -40,8 +40,10 @@ object CommonConversions {
 
   // macros would help here.
   // any other means of abstracting over these converters i can think of would box.
-  // however, at least we only need Int, Long, and BigInt (as other integrals promote anyway)
   object IntegralToByte {
+    implicit object ShortByteConverter extends Converter[Nothing,Short,Byte] {
+      def convert( i : Short ) : Byte = if (i >= Byte.MinValue && i <= Byte.MaxValue) i.toByte else cannotConvert( i, "Byte" );
+    }
     implicit object IntByteConverter extends Converter[Nothing,Int,Byte] {
       def convert( i : Int ) : Byte = if (i >= Byte.MinValue && i <= Byte.MaxValue) i.toByte else cannotConvert( i, "Byte" );
     }
@@ -56,6 +58,9 @@ object CommonConversions {
     }
   }
   object IntegralToShort {
+    implicit object ByteShortConverter extends Converter[Nothing,Byte,Short] {
+      def convert( i : Byte ) : Short = if (i >= Short.MinValue && i <= Short.MaxValue) i.toShort else cannotConvert( i, "Short" );
+    }
     implicit object IntShortConverter extends Converter[Nothing,Int,Short] {
       def convert( i : Int ) : Short = if (i >= Short.MinValue && i <= Short.MaxValue) i.toShort else cannotConvert( i, "Short" );
     }
@@ -70,6 +75,12 @@ object CommonConversions {
     }
   }
   object IntegralToInt {
+    implicit object ByteIntConverter extends Converter[Nothing,Byte,Int] {
+      def convert( i : Byte ) : Int = if (i >= Int.MinValue && i <= Int.MaxValue) i.toInt else cannotConvert( i, "Int" );
+    }
+    implicit object ShortIntConverter extends Converter[Nothing,Short,Int] {
+      def convert( i : Short ) : Int = if (i >= Int.MinValue && i <= Int.MaxValue) i.toInt else cannotConvert( i, "Int" );
+    }
     implicit object LongIntConverter extends Converter[Nothing,Long,Int] {
       def convert( i : Long ) : Int = if (i >= Int.MinValue && i <= Int.MaxValue) i.toInt else cannotConvert( i, "Int" );
     }
@@ -81,6 +92,12 @@ object CommonConversions {
     }
   }
   object IntegralToLong {
+    implicit object ByteLongConverter extends Converter[Nothing,Byte,Long] {
+      def convert( i : Byte ) : Long = if (i >= Long.MinValue && i <= Long.MaxValue) i.toLong else cannotConvert( i, "Long" );
+    }
+    implicit object ShortLongConverter extends Converter[Nothing,Short,Long] {
+      def convert( i : Short ) : Long = if (i >= Long.MinValue && i <= Long.MaxValue) i.toLong else cannotConvert( i, "Long" );
+    }
     implicit object IntLongConverter extends Converter[Nothing,Int,Long] {
       def convert( i : Int ) : Long = if (i >= Long.MinValue && i <= Long.MaxValue) i.toLong else cannotConvert( i, "Long" );
     }
@@ -92,8 +109,10 @@ object CommonConversions {
     }
   }
   object IntegralToBigInt {
-    implicit object IntBigIntConverter extends Converter[Nothing,Int,BigInt]   { def convert( i : Int ) : BigInt = BigInt( i ); }
-    implicit object LongBigIntConverter extends Converter[Nothing,Long,BigInt] { def convert( i : Long ) : BigInt = BigInt( i ); }
+    implicit object ByteBigIntConverter extends Converter[Nothing,Byte,BigInt]   { def convert( i : Byte ) : BigInt = BigInt( i ); }
+    implicit object ShortBigIntConverter extends Converter[Nothing,Short,BigInt] { def convert( i : Short ) : BigInt = BigInt( i ); }
+    implicit object IntBigIntConverter extends Converter[Nothing,Int,BigInt]     { def convert( i : Int ) : BigInt = BigInt( i ); }
+    implicit object LongBigIntConverter extends Converter[Nothing,Long,BigInt]   { def convert( i : Long ) : BigInt = BigInt( i ); }
     implicit object BigIntegerBigIntConverter extends Converter[Nothing,java.math.BigInteger,BigInt] { 
       def convert( i : java.math.BigInteger ) : BigInt = BigInt( i ); 
     }
