@@ -6,7 +6,7 @@ val coreProjectName = "restricted-type";
 
 val commonSettings = Seq(
   organization := "com.mchange",
-  version := "0.0.5-SNAPSHOT",
+  version := "0.0.5",
   scalaVersion := "2.11.8",
   crossScalaVersions := Seq("2.10.6", "2.11.8", "2.12.2"),
   scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked"),
