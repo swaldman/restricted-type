@@ -6,9 +6,9 @@ val coreProjectName = "restricted-type";
 
 val commonSettings = Seq(
   organization := "com.mchange",
-  version := "0.0.5",
-  scalaVersion := "2.11.8",
-  crossScalaVersions := Seq("2.10.6", "2.11.8", "2.12.2"),
+  version := "0.0.6-SNAPSHOT",
+  scalaVersion := "2.12.8",
+  crossScalaVersions := Seq("2.10.7", "2.11.12", "2.12.8"),
   scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked"),
   resolvers += ("releases" at nexusReleases),
   resolvers += ("snapshots" at nexusSnapshots),
