@@ -105,6 +105,8 @@ trait RestrictedType[SEARCHME, BELLY, SHIELD <: AnyVal with RestrictedType.Eleme
   def contains( b : BELLY ) : Boolean;
   def contains[T]( xb : T )( implicit converter : Converter[SEARCHME,T,BELLY] ) : Boolean = try this.contains( converter.convert( xb ) ) catch RecoverFalse;
 
+  def unapply( s : SHIELD ) : Option[BELLY] = Some( s.widen )
+
   // the converter below enables tests of the SHIELD type 
   //
   // alas, with widening and a superfluous test, but it will hopefully be rare to ask 
