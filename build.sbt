@@ -12,8 +12,8 @@ val commonSettings = Seq(
   scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked"),
   resolvers += ("releases" at nexusReleases),
   resolvers += ("snapshots" at nexusSnapshots),
-  resolvers += ("Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases"),
-  resolvers += ("Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"),
+  resolvers += ("Scalaz Bintray Repo" at "https://dl.bintray.com/scalaz/releases"),
+  resolvers += ("Typesafe repository" at "https://repo.typesafe.com/typesafe/releases/"),
   publishTo := { 
     if (version.value.trim.endsWith("SNAPSHOT"))
       Some("snapshots" at nexusSnapshots )
