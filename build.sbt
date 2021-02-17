@@ -6,24 +6,23 @@ val coreProjectName = "restricted-type";
 
 val commonSettings = Seq(
   organization := "com.mchange",
-  version := "0.0.6",
-  scalaVersion := "2.12.8",
-  crossScalaVersions := Seq("2.10.7", "2.11.12", "2.12.8"),
+  version := "0.0.7-SNAPSHOT",
+  scalaVersion := "2.12.13",
+  crossScalaVersions := Seq("2.10.7", "2.11.12", "2.12.13"),
   scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked"),
   resolvers += ("releases" at nexusReleases),
   resolvers += ("snapshots" at nexusSnapshots),
   resolvers += ("Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases"),
   resolvers += ("Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"),
-  publishTo <<= version { 
-    (v : String) => {
-      if (v.trim.endsWith("SNAPSHOT"))
-        Some("snapshots" at nexusSnapshots )
-      else
-        Some("releases"  at nexusReleases )
-    }
+  publishTo := { 
+    if (version.value.trim.endsWith("SNAPSHOT"))
+      Some("snapshots" at nexusSnapshots )
+    else
+      Some("releases"  at nexusReleases )
   },
-  pomExtra <<= name { 
-    (projectName : String ) => (
+  pomExtra := {
+    val projectName = name.value
+     (
       <url>https://github.com/swaldman/{projectName}</url>
       <licenses>
         <license>
@@ -61,8 +60,8 @@ def makeSubproject( subname : String ) = {
 lazy val core = makeSubproject( "core" )
   .settings(
     libraryDependencies ++= Seq(
-      "com.mchange" %% "mchange-commons-scala" % "0.4.10",
-      "org.scalacheck" %% "scalacheck" % "1.13.5" % "test"
+      "com.mchange" %% "mchange-commons-scala" % "0.4.16",
+      "org.scalacheck" %% "scalacheck" % "1.14.1" % "test"
     )
   )
 
@@ -70,7 +69,7 @@ lazy val scalacheckUtil = makeSubproject( "scalacheck-util" )
   .dependsOn( core )
   .settings(
     libraryDependencies ++= Seq(
-      "org.scalacheck" %% "scalacheck" % "1.13.5" % "compile"
+      "org.scalacheck" %% "scalacheck" % "1.14.1" % "compile"
     )
   )
 
